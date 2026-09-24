@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // HU-13: Consolidación y publicación de resultados
+// HU-14: Consulta de resultados por territorio y candidato
 public class Consolidacion {
 
     private ProcesoElectoral proceso;
@@ -28,6 +29,28 @@ public class Consolidacion {
         int total = 0;
         for (Acta acta : actas) {
             total += votosEnActa(acta, candidato);
+        }
+        return total;
+    }
+
+    // HU-14: votos de un candidato en un departamento
+    public int votosPorDepartamento(Candidato candidato, Departamento departamento) {
+        int total = 0;
+        for (Acta acta : actas) {
+            if (acta.getMesa().getPuesto().getMunicipio().getDepartamento() == departamento) {
+                total += votosEnActa(acta, candidato);
+            }
+        }
+        return total;
+    }
+
+    // HU-14: votos de un candidato en un municipio
+    public int votosPorMunicipio(Candidato candidato, Municipio municipio) {
+        int total = 0;
+        for (Acta acta : actas) {
+            if (acta.getMesa().getPuesto().getMunicipio() == municipio) {
+                total += votosEnActa(acta, candidato);
+            }
         }
         return total;
     }
