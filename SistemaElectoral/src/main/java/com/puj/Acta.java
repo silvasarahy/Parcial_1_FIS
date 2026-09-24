@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // HU-09: Acta de resultados de una mesa
+// HU-10: Validación de consistencia de los resultados
 public class Acta {
 
     private String id;
@@ -37,6 +38,15 @@ public class Acta {
             total += r.getVotos();
         }
         return total;
+    }
+
+    // HU-10: devuelve una alerta si el total supera el censo, o null si todo está bien
+    public Alerta verificarConsistencia() {
+        if (calcularTotalVotos() > mesa.getCenso()) {
+            return new Alerta("El total de votos (" + calcularTotalVotos()
+                    + ") supera el censo (" + mesa.getCenso() + ")", this);
+        }
+        return null;
     }
 
     public void validar() {
